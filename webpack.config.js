@@ -16,6 +16,12 @@ module.exports = {
         })
     ],
 
+    resolve: {
+        alias: {
+          'react-icons': path.resolve(__dirname, 'node_modules/react-icons/'),
+        },
+      },
+
     module: {
         rules: [
             {
