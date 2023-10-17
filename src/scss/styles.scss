@@ -1,3 +1,28 @@
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+//basvuru@adalet.gov.tr 
+//çarşamba mesai bitimi
+.navbar{
+    font-family: 'Montserrat', sans-serif;
+    img{
+        cursor: pointer;
+    }
+}
+.header-content{
+    height: 500px;
+    background-size:auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+   .btn{
+    background-color: rgba(255, 145, 0, 0.945);
+    color: white;
+   }
+}
+.recipe{
+    color: rgba(255, 145, 0, 0.945);
+    cursor: pointer;
+   }
