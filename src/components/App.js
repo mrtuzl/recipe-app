@@ -14,24 +14,40 @@ const App = () => {
     const [mealsImg, setMealsImg] = useState("");
     const [fetchData, setFetchData] = useState(true);
     
-   useEffect(() => {
-    if (fetchData) {
-        const api = {
-            base: "https://www.themealdb.com/api/json/v1/1/search.php",
-          }
-    
-          fetch(`${api.base}?s=${search}`)
-          .then((res) => res.json())
-          .then((result) => {
-              console.log(result.meals.length)
-              console.log(result)
+    useEffect(() => {
+        if (fetchData) {
+          const mealApi = "https://www.themealdb.com/api/json/v1/1/search.php";
+          const categoryApi = "https://www.themealdb.com/api/json/v1/1/categories.php";
+      
+          // İlk olarak yemek verilerini çekin
+          fetch(`${mealApi}?s=${search}`)
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result.meals.length);
+              console.log(result);
               setMeals(result.meals[0].strMeal);
               setMealsImg(result.meals[0].strMealThumb);
-              setCategories([...new Set(result.meals.map(meal => meal.strCategory))]);
-              setFetchData(false)
-          });
-    }
-  }, [fetchData]); 
+              setFetchData(false);
+            });
+      
+
+          fetch(categoryApi)
+            .then((res) => res.json())
+            .then((result) => {
+                const processedCategories = result.categories.map(item => ({
+                    id: item.idCategory,
+                    name: item.strCategory,
+                    img: item.strCategoryThumb,
+                    description: item.strCategoryDescription
+                    
+                  }));
+                  setCategories(processedCategories);
+                  console.log(processedCategories)
+                  setFetchData(false);
+            })
+            
+        }
+      }, [fetchData]);
 
   const handleFetchData = () => {
     setFetchData(!fetchData);

@@ -32,4 +32,7 @@
 
    .card{
     width: 16rem;
+    height: 30rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
    }
