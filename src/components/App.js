@@ -5,7 +5,6 @@ import Navbar from './Navbar.js';
 import '../scss/styles.scss'
 import { BsSearch } from "react-icons/bs";
 
-
 const App = () => {
 
     const [search, setSearch] = useState("");
@@ -13,25 +12,56 @@ const App = () => {
     const [categories, setCategories] = useState([]);
     const [mealsImg, setMealsImg] = useState("");
     const [fetchData, setFetchData] = useState(true);
-    
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [categoryMeals, setCategoryMeals] = useState([]);
+    const [selectedMeal, setSelectedMeal] = useState("");
+
+    const mealApi = "https://www.themealdb.com/api/json/v1/1/search.php";
+    const categoryApi = "https://www.themealdb.com/api/json/v1/1/categories.php";
+    const ctrFilter = "https://www.themealdb.com/api/json/v1/1/filter.php"
+    console.log(selectedCategory)
+    console.log(selectedMeal)
+
+
     useEffect(() => {
-        if (fetchData) {
-          const mealApi = "https://www.themealdb.com/api/json/v1/1/search.php";
-          const categoryApi = "https://www.themealdb.com/api/json/v1/1/categories.php";
       
-          // İlk olarak yemek verilerini çekin
-          fetch(`${mealApi}?s=${search}`)
+        fetch(`${mealApi}?s=${selectedMeal}`)
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result.meals.length);
+          console.log(result);
+          setFetchData(false);
+        });
+    }, [selectedMeal]);
+
+
+    useEffect(() => {
+      
+          fetch(`${ctrFilter}?c=${selectedCategory}`)
             .then((res) => res.json())
             .then((result) => {
-              console.log(result.meals.length);
+              const processedCategory = result.meals.map(item => ({
+                name: item.strMeal,
+                img: item.strMealThumb,
+                id: item.idMeal
+              }));
               console.log(result);
-              setMeals(result.meals[0].strMeal);
-              setMealsImg(result.meals[0].strMealThumb);
+              setCategoryMeals(processedCategory);
+              console.log(processedCategory);
               setFetchData(false);
+            })
+            .catch((error) => {
+              console.error("Fetch Hatası:", error);
             });
-      
+        
+      }, [selectedCategory]);
 
-          fetch(categoryApi)
+
+
+    useEffect(() => {
+        if (fetchData) {
+
+            fetch(categoryApi)
             .then((res) => res.json())
             .then((result) => {
                 const processedCategories = result.categories.map(item => ({
@@ -39,21 +69,37 @@ const App = () => {
                     name: item.strCategory,
                     img: item.strCategoryThumb,
                     description: item.strCategoryDescription
-                    
                   }));
                   setCategories(processedCategories);
                   console.log(processedCategories)
                   setFetchData(false);
-            })
-            
+            });
+
         }
       }, [fetchData]);
 
+
+      useEffect(() => {
+        if (fetchData) {
+
+                    fetch(`${mealApi}?s=${search}`)
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result.meals.length);
+                console.log(result);
+                setMeals(result.meals[0].strMeal);
+                setMealsImg(result.meals[0].strMealThumb);
+                setFetchData(false);
+            });
+            }
+        }, [fetchData]);
+
+
+
+     
   const handleFetchData = () => {
     setFetchData(!fetchData);
   };
-
-     
         return (
             <> 
              <header className="header"> 
@@ -76,7 +122,16 @@ const App = () => {
              </header>
 
             
-            <Search meals={meals} categories={categories} mealsImg={mealsImg}/>
+            <Search 
+            meals={meals} 
+            categories={categories} 
+            mealsImg={mealsImg} 
+            selectedCategory={selectedCategory} 
+            setSelectedCategory={setSelectedCategory} 
+            categoryMeals={categoryMeals} 
+            selectedMeal={selectedMeal}
+            setSelectedMeal={setSelectedMeal} />
+        
             </>
         );
 
