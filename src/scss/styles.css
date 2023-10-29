@@ -11977,6 +11977,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.mainColor {
+  background-color: rgba(255, 145, 0, 0.945) !important;
+  color: white !important;
+}
+
 .navbar {
   font-family: "Montserrat", sans-serif;
 }
@@ -11992,10 +11997,6 @@ textarea.form-control-lg {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
 }
-.header .header-content .btn {
-  background-color: rgba(255, 145, 0, 0.945);
-  color: white;
-}
 
 .recipe {
   color: rgba(255, 145, 0, 0.945);
@@ -12003,8 +12004,16 @@ textarea.form-control-lg {
 }
 
 .card {
-  width: 16rem;
-  height: 30rem;
+  width: 18rem;
+  height: 20rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.card .card-text {
+  font-size: 12px;
+}
+
+.img {
+  max-width: 18rem;
+  max-height: 15rem;
 }/*# sourceMappingURL=styles.css.map */
