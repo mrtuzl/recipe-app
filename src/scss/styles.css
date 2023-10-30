@@ -12005,7 +12005,7 @@ textarea.form-control-lg {
 
 .card {
   width: 18rem;
-  height: 20rem;
+  height: 21rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -12016,4 +12016,16 @@ textarea.form-control-lg {
 .img {
   max-width: 18rem;
   max-height: 15rem;
+}
+
+.overflow {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }/*# sourceMappingURL=styles.css.map */

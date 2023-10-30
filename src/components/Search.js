@@ -4,6 +4,7 @@ const Search = (props) => {
   console.log(props.searchMeals.length,"searchmeals")
   console.log(props.meal.length,"meal")
   console.log("kategorimeals", props.categoryMeals.length)
+  const randomRating = Math.floor(Math.random() * 5) + 1;
       return(
          <>
          <div className="container">
@@ -95,7 +96,7 @@ const Search = (props) => {
                     <div className="col-3"> 
                   <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">{mealContent.category}</a></li>
+                        <li className="breadcrumb-item"s><a href="#">{mealContent.category}</a></li>
                         <li className="breadcrumb-item active" aria-current="page">{mealContent.nationality}</li>
                       </ol>
                     </nav>
@@ -195,57 +196,57 @@ const Search = (props) => {
           {props.fetchData === false && props.searchMeals.length < 25 ?
              props.searchMeals.map((meals) => (
               <div className="col-lg-3 col-md-6 col-sm-3">
-                <div className="card m-2  mt-3 p-2 " onClick={() => {props.setSelectedMeal(meals.name)}}>
+                <div className="card m-2  mt-3 p-2 ">
                   <img src={meals.img} alt="..." className="card-img-top img"/>
                   <span className="position-absolute badge mainColor">
                       {meals.category}
                   </span>
                   <div className="card-body p-2"> 
-                  <h5>{meals.name} </h5>
-                 <span> {meals.id} - {meals.nationality} </span>
+                  <p className="card-title fw-bold overflow-ellipsis">  {meals.name}</p>
+                 
+                  <button 
+                    className="btn btn-sm mainColor"
+                    onClick={() => {props.setSelectedMeal(meals.name)}}> 
+                    Read More...
+                    </button>
                  </div>
                 </div>
                   </div>
-            )) : props.categoryMeals.length > 0 ? (
+            )) : 
+            props.categoryMeals.length > 0 ? (
             props.categoryMeals.map((ctrMeal) => (
               <div className="col-lg-3 col-md-5 col-sm-6">
-                <div className="card m-2 mt-3 p-2" onClick={() => {props.setSelectedMeal(ctrMeal.name)}}>
+                <div className="card m-2 mt-3 p-2">
                   <img src={ctrMeal.img} className="card-img-top img" alt="..."/>
                    
                   <div className="card-body p-2">
-                    <h5 className="card-title">  {ctrMeal.name} </h5>
+                    <p className="card-title fw-bold overflow-ellipsis"> {ctrMeal.name} </p>
+                    <button 
+                    className="btn btn-sm mainColor"
+                    onClick={() => {props.setSelectedMeal(ctrMeal.name)}}> 
+                    Read More...
+                    </button>
                   </div>
                 </div>
               </div>
             ))) : 
-            
             (
-    
-             
               props.categories.map((category) => (
                 <div className="col-lg-3 col-md-5 col-sm-6">
-                  
                   <div className="card m-2 mt-3 p-2" onClick={() => {props.setSelectedCategory(category.name)}}>
-
                     <img src={category.img} className="card-img-top" alt="..."/>
-                    <span className="position-absolute badge mainColor">
-                      {category.name}
-                      </span>
-                    <div className="card-body p-2">
-                      <h5 className="card-title">  {category.name} </h5>
-                      <p className="card-text">  {category.description}</p>
+                       <span className="position-absolute badge mainColor">
+                          {category.name}
+                       </span>
+                     <div className="card-body p-2   overflow">
+                       <h5 className="card-title">  {category.name} </h5>
+                       <p className="card-text">  {category.description}</p>
                     </div>
                   </div>
                 </div>
-              ))
-              
-            )}
-  
-  
-  
+              )))}
           </div>
          </div>
-      
          </>
       );
   }
