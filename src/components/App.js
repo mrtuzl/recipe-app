@@ -2,13 +2,14 @@ import React, { Component, useEffect, useState } from 'react';
 import Search from './Search.js';
 import img from "../img/carousel3.jpg";
 import Navbar from './Navbar.js';
+import Footer from './Footer.js';
 import '../scss/styles.scss'
 import { BsSearch } from "react-icons/bs";
+import {Link as ScrollLink } from 'react-scroll';
 
 const App = () => {
 
     const [search, setSearch] = useState("");
-    
     const [searchMeals, setSearchMeals] = useState([]);
     const [categories, setCategories] = useState([]);
     const [fetchData, setFetchData] = useState(true);
@@ -21,15 +22,12 @@ const App = () => {
     const categoryApi = "https://www.themealdb.com/api/json/v1/1/categories.php";
     const ctrFilter = "https://www.themealdb.com/api/json/v1/1/filter.php"
     const randomApi = "https://www.themealdb.com/api/json/v1/1/random.php";
-    console.log(selectedCategory)
-    console.log(selectedMeal)
-
 
     useEffect(() => {
       
         fetch(`${mealApi}?s=${selectedMeal}`)
-        .then((res) => res.json())
-        .then((result) => {
+          .then((res) => res.json())
+          .then((result) => {
             const processedMeal = result.meals.map(item => ({
                 id: item.idMeal,
                 name: item.strMeal,
@@ -37,54 +35,21 @@ const App = () => {
                 nationality: item.strArea,
                 instruction: item.strInstructions,
                 img: item.strMealThumb,
+                tags: item.strTags,
                 ingredients: [
-                     item.strIngredient1,
-                     item.strIngredient2,
-                     item.strIngredient3,
-                     item.strIngredient4,
-                     item.strIngredient5,
-                     item.strIngredient6,
-                     item.strIngredient7,
-                     item.strIngredient8,
-                     item.strIngredient9,
-                     item.strIngredient10,
-                     item.strIngredient11,
-                     item.strIngredient12,
-                     item.strIngredient13,
-                     item.strIngredient14,
-                     item.strIngredient15,
-                     item.strIngredient16,
-                     item.strIngredient17,
-                     item.strIngredient18,
-                     item.strIngredient19,
-                     item.strIngredient20
+                     item.strIngredient1, item.strIngredient2, item.strIngredient3, item.strIngredient4, item.strIngredient5,
+                     item.strIngredient6, item.strIngredient7, item.strIngredient8, item.strIngredient9, item.strIngredient10,
+                     item.strIngredient11,item.strIngredient12,item.strIngredient13,item.strIngredient14,item.strIngredient15,
+                     item.strIngredient16,item.strIngredient17,item.strIngredient18,item.strIngredient19,item.strIngredient20
                   ],
                 measures: [
-                     item.strMeasure1,
-                     item.strMeasure2,
-                     item.strMeasure3,
-                     item.strMeasure4,
-                     item.strMeasure5,
-                     item.strMeasure6,
-                     item.strMeasure7,
-                     item.strMeasure8,
-                     item.strMeasure9,
-                     item.strMeasure10,
-                     item.strMeasure11,
-                     item.strMeasure12,
-                     item.strMeasure13,
-                     item.strMeasure14,
-                     item.strMeasure15,
-                     item.strMeasure16,
-                     item.strMeasure17,
-                     item.strMeasure18,
-                     item.strMeasure19,
-                     item.strMeasure20
+                     item.strMeasure1, item.strMeasure2, item.strMeasure3, item.strMeasure4, item.strMeasure5,
+                     item.strMeasure6, item.strMeasure7, item.strMeasure8, item.strMeasure9, item.strMeasure10,
+                     item.strMeasure11,item.strMeasure12,item.strMeasure13,item.strMeasure14,item.strMeasure15,
+                     item.strMeasure16,item.strMeasure17,item.strMeasure18,item.strMeasure19,item.strMeasure20
                 ]
               }));
           setMeal(processedMeal);
-          console.log(processedMeal);
-          console.log(result);
           setFetchData(false);
         });
     }, [selectedMeal]);
@@ -100,9 +65,7 @@ const App = () => {
                 img: item.strMealThumb,
                 id: item.idMeal
               }));
-              console.log(result);
               setCategoryMeals(processedCategory);
-              console.log(processedCategory);
               setFetchData(false);
             })
             .catch((error) => {
@@ -112,11 +75,10 @@ const App = () => {
       }, [selectedCategory]);
 
 
-
     useEffect(() => {
-        if (fetchData) {
 
-            fetch(categoryApi)
+        if (fetchData) {
+          fetch(categoryApi)
             .then((res) => res.json())
             .then((result) => {
                 const processedCategories = result.categories.map(item => ({
@@ -126,7 +88,6 @@ const App = () => {
                     description: item.strCategoryDescription
                   }));
                   setCategories(processedCategories);
-                  console.log(processedCategories)
                   setFetchData(false);
             });
 
@@ -134,9 +95,9 @@ const App = () => {
       }, [fetchData]);
 
       useEffect(() => {
-        if (fetchData) {
 
-                fetch(`${mealApi}?s=${search}`)
+        if (fetchData) {
+          fetch(`${mealApi}?s=${search}`)
             .then((res) => res.json())
             .then((result) => {
               const processedSearchMeals = result.meals.map(item => ({
@@ -146,20 +107,18 @@ const App = () => {
                 img: item.strMealThumb,
                 nationality: item.strArea
               }));
-                console.log(result.meals.length);
-                console.log(result);
                 setSearchMeals(processedSearchMeals);
                 setFetchData(false);
+            }).catch((error) => {
+              console.error("Fetch Hatası:", error);
             });
         }
             }, [fetchData]);
 
 
-
   const handleRandom = () => {
-  
       
-          fetch(randomApi)
+        fetch(randomApi)
           .then((res) => res.json())
           .then((result) => {
             const processedMeal = result.meals.map(item => ({
@@ -169,101 +128,83 @@ const App = () => {
               nationality: item.strArea,
               instruction: item.strInstructions,
               img: item.strMealThumb,
+              tags: item.strTags,
               ingredients: [
-                   item.strIngredient1,
-                   item.strIngredient2,
-                   item.strIngredient3,
-                   item.strIngredient4,
-                   item.strIngredient5,
-                   item.strIngredient6,
-                   item.strIngredient7,
-                   item.strIngredient8,
-                   item.strIngredient9,
-                   item.strIngredient10,
-                   item.strIngredient11,
-                   item.strIngredient12,
-                   item.strIngredient13,
-                   item.strIngredient14,
-                   item.strIngredient15,
-                   item.strIngredient16,
-                   item.strIngredient17,
-                   item.strIngredient18,
-                   item.strIngredient19,
-                   item.strIngredient20
+                   item.strIngredient1, item.strIngredient2, item.strIngredient3, item.strIngredient4, item.strIngredient5,
+                   item.strIngredient6, item.strIngredient7, item.strIngredient8, item.strIngredient9, item.strIngredient10,
+                   item.strIngredient11,item.strIngredient12,item.strIngredient13,item.strIngredient14,item.strIngredient15,
+                   item.strIngredient16,item.strIngredient17,item.strIngredient18,item.strIngredient19,item.strIngredient20
                 ],
               measures: [
-                   item.strMeasure1,
-                   item.strMeasure2,
-                   item.strMeasure3,
-                   item.strMeasure4,
-                   item.strMeasure5,
-                   item.strMeasure6,
-                   item.strMeasure7,
-                   item.strMeasure8,
-                   item.strMeasure9,
-                   item.strMeasure10,
-                   item.strMeasure11,
-                   item.strMeasure12,
-                   item.strMeasure13,
-                   item.strMeasure14,
-                   item.strMeasure15,
-                   item.strMeasure16,
-                   item.strMeasure17,
-                   item.strMeasure18,
-                   item.strMeasure19,
-                   item.strMeasure20
+                   item.strMeasure1, item.strMeasure2, item.strMeasure3, item.strMeasure4, item.strMeasure5,
+                   item.strMeasure6, item.strMeasure7, item.strMeasure8, item.strMeasure9, item.strMeasure10,
+                   item.strMeasure11,item.strMeasure12,item.strMeasure13,item.strMeasure14,item.strMeasure15,
+                   item.strMeasure16,item.strMeasure17,item.strMeasure18,item.strMeasure19,item.strMeasure20
               ]
             }));
         setMeal(processedMeal);
-        console.log(processedMeal);
-        console.log(result);
         setFetchData(false);
           });
-
-      
-   
-
   }
+
   const handleFetchData = () => {
     setFetchData(!fetchData);
   };
+
         return (
             <> 
-             <header className="header"> 
+             <header className="header" id='home'> 
                  <Navbar/>
-                        <div className="header-content d-flex align-items-center justify-content-center flex-column text-center bg-image" 
-                    style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.1)) , url(${img})` }}>
-                        <h1 className="header-title ls-2 text-white fw-bold"> What are your favorite cuisines? </h1>
-                        <p className="text-uppercase my-3 ls-1 text-white fw-bold"> personelize your experience </p>
-                    <div className='search d-flex input-group-md'>
-                        <form> 
-                            <input className="rounded-5 form-control" placeholder="Search Food" type='text' name='text' onChange={(e) => {setSearch(e.target.value)}}/>
-                        </form>
-                        <button onClick={handleFetchData} type="button" className='btn mainColor border-1 border-white rounded-5 mx-3'> 
-                        <BsSearch/>
-                        </button>
-                        <button onClick={handleRandom} type="button" className='btn mainColor border-1 border-white rounded-5'> Feel Lucky!</button>
-                    </div>
-                    </div>
-        
-             </header>
+                   <div className="header-content d-flex align-items-center justify-content-center flex-column text-center bg-image" 
+                        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.1)) , url(${img})` }}>
+                           <h1 className="header-title ls-2 text-white fw-bold"> What are your favorite cuisines? </h1>
+                           <p className="text-uppercase my-3 ls-1 text-white fw-bold"> personelize your experience </p>
+                             <div className='search d-flex input-group-md'>
+                                <form> 
+                                   <input className="rounded-5 form-control" 
+                                   placeholder="Search Food" 
+                                   type='text' 
+                                   name='text' 
+                                   onChange={(e) => {setSearch(e.target.value)}}/>
+                                </form>
 
-            
-            <Search 
-            searchMeals={searchMeals} 
-            categories={categories} 
-            selectedCategory={selectedCategory} 
-            setSelectedCategory={setSelectedCategory} 
-            categoryMeals={categoryMeals} 
-            selectedMeal={selectedMeal}
-            setSelectedMeal={setSelectedMeal}
-            meal={meal} 
-            setMeal={setMeal}
-            fetchData={fetchData} />
-        
+                                        <ScrollLink  to="search"  
+                                          aria-current="page"
+                                          spyThrottle={100} 
+                                          smooth={true} 
+                                          offset={140} 
+                                          duration={200}>  
+                                        <button onClick={handleFetchData} type="button" className='btn mainColor border-1 shadow rounded-5 mx-3'> 
+                                        <BsSearch/>
+                                        </button>
+                                        </ScrollLink>
+
+                                        <ScrollLink  to="search"  
+                                          aria-current="page"
+                                          spyThrottle={100} 
+                                          smooth={true} 
+                                          offset={140} 
+                                          duration={200}>  
+                                        <button onClick={handleRandom} type="button" className='btn mainColor border-1 shadow rounded-5'> Feel Lucky!</button>
+                                        </ScrollLink>
+                               </div>
+                    </div>
+             </header>
+                <Search
+                id="search" 
+                searchMeals={searchMeals} 
+                categories={categories} 
+                selectedCategory={selectedCategory} 
+                setSelectedCategory={setSelectedCategory} 
+                categoryMeals={categoryMeals} 
+                selectedMeal={selectedMeal}
+                setSelectedMeal={setSelectedMeal}
+                meal={meal} 
+                setMeal={setMeal}
+                fetchData={fetchData} />
+
+               <Footer/>
             </>
         );
-
 }
-
 export default App;
