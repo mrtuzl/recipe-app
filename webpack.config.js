@@ -10,6 +10,12 @@ module.exports = {
         filename: 'bundle.js'
     },
 
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+  },
+  
     plugins: [
         new HTMLWebpackPlugin({
             template: './src/index.html'
