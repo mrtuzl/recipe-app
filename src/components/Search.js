@@ -19,7 +19,7 @@ const Search = (props) => {
                    <div className="col-xl-3 col-lg-4 col-md-5"> 
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="/">Home</a></li>
+                        <li className="breadcrumb-item"><a href="https://mrtuzl.github.io/recipe-app/dist/">Home</a></li>
                         <li className="breadcrumb-item"> {mealContent.category}</li>
                         <li className="breadcrumb-item active" aria-current="page">{mealContent.nationality}</li>
                       </ol>
@@ -119,7 +119,7 @@ const Search = (props) => {
                     <div className="col-xl-3 col-lg-4 col-md-5"> 
                       <nav aria-label="breadcrumb">
                        <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="/">Home</a></li>
+                        <li className="breadcrumb-item"><a href="https://mrtuzl.github.io/recipe-app/dist/">Home</a></li>
                         <li className="breadcrumb-item"s>{mealContent.category}</li>
                         <li className="breadcrumb-item active" aria-current="page">{mealContent.nationality}</li>
                       </ol>
@@ -215,12 +215,12 @@ const Search = (props) => {
 
               {
                 <div className="p-3 mx-2"> 
-                   <a href="/"> <button type="button" className="btn btn-warning btn-md mainColor shadow">
+                   <a href="https://mrtuzl.github.io/recipe-app/dist/"> <button type="button" className="btn btn-warning btn-md mainColor shadow">
                        <HiHome/>       
                     </button> </a>
 
                 {(props.categoryMeals.length < 1 && props.searchMeals.length == 25) && (
-                  <div className="d-inline m-2 mt-3 bg-primary">
+                  <div className="d-inline m-2 mt-3">
                     <button type="button" className="btn mainColor position-relative shadow">
                       Categories
                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">

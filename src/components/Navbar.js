@@ -6,11 +6,11 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-white fixed-top shadow p-3">
          <div className="container-fluid">
 
-           <a href="/"> 
+           <a href="https://mrtuzl.github.io/recipe-app/dist/"> 
              <img src={logo} alt="Logo" width="60" height="40" className="d-inline-block mx-auto p-1"/>
            </a> 
 
-           <a href="/"> 
+           <a href="https://mrtuzl.github.io/recipe-app/dist/"> 
             <span className='recipe p-2 fw-bold fs-5'> Recipe App </span>
            </a>    
 
