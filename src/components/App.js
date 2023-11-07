@@ -159,7 +159,7 @@ const App = () => {
                         style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.1)) , url(${img})` }}>
                            <h1 className="header-title ls-2 text-white fw-bold"> What are your favorite cuisines? </h1>
                            <p className="text-uppercase my-3 ls-1 text-white fw-bold"> personelize your experience </p>
-                             <div className='search d-flex input-group-md'>
+                             <div className='search d-flex input-group-md '>
                                 <form> 
                                    <input className="rounded-5 form-control" 
                                    placeholder="Search Food" 
@@ -174,20 +174,22 @@ const App = () => {
                                           smooth={true} 
                                           offset={140} 
                                           duration={200}>  
-                                        <button onClick={handleFetchData} type="button" className='btn mainColor border-1 shadow rounded-5 mx-3'> 
+                                        <button onClick={handleFetchData} type="button" className='btn mainColor border-1 shadow rounded-5 mx-1'> 
                                         <BsSearch/>
                                         </button>
                                         </ScrollLink>
 
-                                        <ScrollLink  to="search"  
+                                        
+                               </div>
+
+                                      <ScrollLink  to="search"  
                                           aria-current="page"
                                           spyThrottle={100} 
                                           smooth={true} 
                                           offset={140} 
                                           duration={200}>  
-                                        <button onClick={handleRandom} type="button" className='btn mainColor border-1 shadow rounded-5'> Feel Lucky!</button>
+                                        <button onClick={handleRandom} type="button" className='btn mainColor border-1 shadow rounded-5 mt-3 customButton'> Feel Lucky!</button>
                                         </ScrollLink>
-                               </div>
                     </div>
              </header>
                 <Search
